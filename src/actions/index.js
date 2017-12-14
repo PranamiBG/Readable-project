@@ -12,10 +12,11 @@ const headers = {
 
 export function fetchPosts() {
   const API = 'http://localhost/3001';
-  const key = '?key=PRANAMI';
+//  const key = '?key=PRANAMI';
 
-  const request = axios.get(`${API}/posts`,{headers})
-
+  const request = axios.get(`${API}/posts`,{headers});
+  console.log(request);
+  
   return dispatch => {
         request.then(({data}) => {
           dispatch({
