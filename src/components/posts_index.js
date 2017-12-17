@@ -1,27 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
+import _ from 'lodash';
 
 class PostsIndex extends Component {
   componentDidMount() {
-    this.props.fetchPosts();
-    console.log(this.props.posts)
+    this.props.dispatch(fetchPosts())
+    .then(() => {
+      this.setState({
+        loading : false
+      });
+      console.log(this.props.posts.posts[0])
+    })
   }
 
-  render() {
-    console.log(this.props.posts);
 
+
+  render() {
+  console.log(this.props.posts.posts)
     return(
-      <div>
-        Posts
-      </div>
+
+        this.props.posts.posts.map(post => {
+          <div>
+              post.title
+          </div>
+        })
+      
+
 
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { posts: state.props };
+  return { posts: state.posts };
 }
 
-export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
+export default connect(mapStateToProps)(PostsIndex);
