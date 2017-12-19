@@ -22,6 +22,50 @@
   font-size: large;
 }
 
+.header_name {
+   text-align: center;
+   margin-top: 40px
+}
+
+.category {
+  display: inline-block;
+  margin-right: 50px;
+  margin-top: 0px;
+  background-color: #4cAf50;
+  text-align: center;
+  width: 100px;
+  height: 35px;
+  color: white;
+  padding-top: 20px
+}
+
+.parent {
+  text-align: center;
+}
+
+.card_container {
+
+  margin-top: 0px;
+}
+
+.card {
+  list-style-type: none;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-top: 20px;
+  height: 80px;
+  background-color: #DDA0DD
+}
+
+.post_title {
+  text-align: center;
+  padding-top: 10px;
+  color: #4B0082
+}
+
+.post_body {
+  text-align: center;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

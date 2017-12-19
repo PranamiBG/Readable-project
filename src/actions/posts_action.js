@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const FETCH_POSTS = 'fetch_posts';
 
-let token = localStorage.token
+let token ;
 if(!token)
   token = localStorage.token = Math.random().toString(36).substr(-8)
 const API = 'http://localhost:3001';
