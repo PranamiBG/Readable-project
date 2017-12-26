@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/posts_action';
 import { fetchCategories } from '../actions/categories_action';
+import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import _ from 'lodash';
 
 
@@ -44,9 +46,12 @@ class PostsIndex extends Component {
                 <div className="parent">
                 { category_object.map((category, index) => {
                   return (
-                    <li className="category" key={index} >
+                    <Link
+                      to= "/posts">
+                    <button className="category" key={index} >
                         {category.name}
-                    </li>
+                    </button>
+                    </Link>
                   )
                 })
               }
@@ -77,6 +82,11 @@ class PostsIndex extends Component {
                   No Data
                 </div>
               }
+
+              <Link
+                to="/new">
+                <button className="create-post">Create Post</button>
+              </Link>
       </div>
     );
   }
