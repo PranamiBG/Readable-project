@@ -32,18 +32,27 @@ export function createPosts(values, callback) {
   const request = axios.post(`${API}/posts`,values,{headers})
     .then(() => callback());
 
-  return {
-    type: CREATE_POST,
-    payload: request
-  };
+  return dispatch => {
+    return request.then(({data}) => {
+      dispatch({
+        type: CREATE_POST,
+        payload: data
+      })
+    })
+  }
 }
 
 //Action Creator for displaying a selected post
 export function fetchPost(id) {
     const request = axios.get(`${API}/posts/${id}`,{headers});
 
-    return {
-      type: FETCH_POST,
-      payload: request
-    };
+    return dispatch => {
+      return request.then(({data}) => {
+        console.log(data);
+        dispatch({
+        type: FETCH_POST,
+        payload: data
+        })
+      })
+    }
 }

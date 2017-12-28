@@ -6,6 +6,7 @@ class PostDetail extends Component {
     componentDidMount() {
         const  { id } = this.props.match.params;
         this.props.fetchPost(id);
+        console.log(id)
     }
 
     render() {

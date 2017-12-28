@@ -8,7 +8,7 @@ export default function(state = {}, action) {
       // const newState  = { ...state,  };
       // newState[post.id] = post;
       // return newState;
-      return {...state, [action.payload.data.id]: action.payload.data};
+      return {...state, [action.payload.id]: action.payload};
 
     case FETCH_POSTS:
      return {posts: { ...state.posts, ...action.payload }};

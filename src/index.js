@@ -8,11 +8,15 @@ import './index.css';
 import App from './App';
 import reducers from './reducers/index.js'
 import Posts from './components/posts_index';
-import Category from './components/category';
 import CreatePost from './components/new_post';
 import PostDetail from './components/post_detail';
+import CategoryView from './components/category';
+import { compose } from 'redux'; 
 
-const createStoreWithMiddleware = createStore(reducers,applyMiddleware(thunk));
+//const createStoreWithMiddleware = createStore(reducers,applyMiddleware(thunk));
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+ const createStoreWithMiddleware = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware}>
@@ -21,6 +25,7 @@ ReactDOM.render(
           <Route  path="/new" component={CreatePost} />
           <Route path="/posts/:id" component={PostDetail} />
           <Route exact  path="/" component={Posts} />
+          <Route path="/:category/posts" component={CategoryView} />
         </div>
       </BrowserRouter>
   </Provider>  , document.getElementById('root'));
