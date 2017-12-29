@@ -8,7 +8,7 @@ class CreatePost extends Component {
   constructor() {
     super();
     this.state = {
-      selectValue : 'react'
+      selectValue : ''
   };
   this.handleChange = this.handleChange.bind(this);
   this.renderCategory = this.renderCategory.bind(this);
@@ -42,18 +42,16 @@ class CreatePost extends Component {
     return(
       <div className="title-design">
         <label className="label-design">{field.label} </label>
+          <Field name="category" className="title-input" component="select">
+            <option></option>
+            <option value="react">React</option>
+            <option value="redux">Redux</option>
+            <option value="udacity">Udacity</option>
+          </Field>
 
-        <select
-          {...field.input}
-          name="categories"
-          className="title-input"
-          onChange={this.handleChange}  >
-              <option value="react">React</option>
-              <option value="redux">Redux</option>
-              <option value="udacity">Udacity</option>
-
-        </select>
-
+          <div className="text-help has-danger">
+            {field.meta.touched ? field.meta.error : ''}
+          </div>
       </div>
     );
   }
@@ -110,7 +108,7 @@ function validate(values) {
     }
 
   if(!values.category) {
-    errors.category = "Select a category";
+    errors.category = "Please select a category";
   }
 
   return errors;
