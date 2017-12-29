@@ -11,7 +11,7 @@ import Posts from './components/posts_index';
 import CreatePost from './components/new_post';
 import PostDetail from './components/post_detail';
 import CategoryView from './components/category';
-import { compose } from 'redux'; 
+import { compose } from 'redux';
 
 //const createStoreWithMiddleware = createStore(reducers,applyMiddleware(thunk));
 

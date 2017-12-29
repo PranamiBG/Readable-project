@@ -31,7 +31,7 @@ export function fetchPosts() {
 export function createPosts(values, callback) {
   const request = axios.post(`${API}/posts`,values,{headers})
     .then(() => callback());
-
+    console.log(request);    
   return dispatch => {
     return request.then(({data}) => {
       dispatch({

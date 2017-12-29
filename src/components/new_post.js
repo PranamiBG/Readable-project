@@ -31,8 +31,11 @@ class CreatePost extends Component {
   }
 
   handleChange(e) {
-    this.setState({selectValue: e.target.value});
-    console.log(this.state.selectValue);
+    const value=e.target.value;
+    this.props.change("categories",value);
+    this.setState({selectValue: value}, () => {
+      console.log(value)
+    });
   }
 
   renderCategory(field) {
@@ -41,22 +44,24 @@ class CreatePost extends Component {
         <label className="label-design">{field.label} </label>
 
         <select
+          {...field.input}
           name="categories"
           className="title-input"
-          value={this.state.selectValue}
           onChange={this.handleChange}  >
               <option value="react">React</option>
               <option value="redux">Redux</option>
               <option value="udacity">Udacity</option>
+
         </select>
-        {this.state.selectValue}
-        {...field.input}
+
       </div>
     );
   }
 
     onSubmit(values) {
+      this.props.change('id',(new Date()).getTime());
       this.props.createPosts(values, () => {
+
           this.props.history.push('/');
       });
     }
@@ -82,7 +87,7 @@ class CreatePost extends Component {
             label="Category"
             name="category"
             component={this.renderCategory}
-          />
+            />
 
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link  to="/">
@@ -103,6 +108,10 @@ function validate(values) {
   if (!values.body) {
     errors.body = "Enter some content";
     }
+
+  if(!values.category) {
+    errors.category = "Select a category";
+  }
 
   return errors;
 }
