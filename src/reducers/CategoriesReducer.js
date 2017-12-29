@@ -9,7 +9,7 @@ export default function(state={}, action) {
 
         case FETCH_PARTICULAR_CATEGORY_POSTS:
         console.log(action.payload);
-        return  {...state, [action.payload.data.category]: action.payload.data};
+        return  {...state, [action.category]: action.payload.data};
 
         default:
           return state;

@@ -37,7 +37,8 @@ export function fetchPostWithCateogry(category) {
         console.log(data);
           dispatch({
             type: FETCH_PARTICULAR_CATEGORY_POSTS,
-            payload: data
+            payload: data,
+            category
           })
       })
   }

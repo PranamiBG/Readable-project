@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_POST } from '../actions/posts_action';
+import { FETCH_POSTS, FETCH_POST, CREATE_POST } from '../actions/posts_action';
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -12,6 +12,9 @@ export default function(state = {}, action) {
 
     case FETCH_POSTS:
      return {posts: { ...state.posts, ...action.payload }};
+
+    case CREATE_POST:
+      return {posts: { ...state, ...action.payload}};
 
      default:
       return state;

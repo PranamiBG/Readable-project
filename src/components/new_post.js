@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import { createPosts } from '../actions/posts_action';
 
 class CreatePost extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectValue : 'react'
+  };
+  this.handleChange = this.handleChange.bind(this);
+  this.renderCategory = this.renderCategory.bind(this);
+}
+
   renderField(field) {
       return(
         <div className="title-design">
@@ -21,16 +30,27 @@ class CreatePost extends Component {
       );
   }
 
+  handleChange(e) {
+    this.setState({selectValue: e.target.value});
+    console.log(this.state.selectValue);
+  }
+
   renderCategory(field) {
     return(
       <div className="title-design">
         <label className="label-design">{field.label} </label>
 
-        <select name="categories" className="title-input">
-          <option value="react">React</option>
-          <option value="redux">Redux</option>
-          <option value="udacity">Udacity</option>
+        <select
+          name="categories"
+          className="title-input"
+          value={this.state.selectValue}
+          onChange={this.handleChange}  >
+              <option value="react">React</option>
+              <option value="redux">Redux</option>
+              <option value="udacity">Udacity</option>
         </select>
+        {this.state.selectValue}
+        {...field.input}
       </div>
     );
   }

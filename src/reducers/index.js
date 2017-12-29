@@ -4,7 +4,7 @@ import { reducer as formReducer} from 'redux-form';
 import CategoriesReducer from './CategoriesReducer';
 
 const rootReducer = combineReducers({
-    loading: false,
+    selectValue: 'react',
     posts: PostReducer,
     categories: CategoriesReducer,
     form : formReducer

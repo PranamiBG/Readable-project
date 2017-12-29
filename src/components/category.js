@@ -18,10 +18,10 @@ class CategoryView extends Component {
       }
 
       return(
-          <div>
-            <h3>category.title</h3>
-            <h5>category.category</h5>
-            <h6>category.body</h6>
+          <div> {
+            category.map(post => (<h3>{post.title}</h3>))
+          }
+
           </div>
       );
     }
