@@ -12,6 +12,8 @@ const headers = {
                     'Authorization' :'token'
                 }
 
+
+
 //Action creator for fetching posts from the API server
 export function fetchPosts() {
   const URL = `${API}/posts`;
@@ -29,11 +31,12 @@ export function fetchPosts() {
 
 //Action Creator for creating posts
 export function createPosts(values, callback) {
-  const request = axios.post(`${API}/posts`,values,{headers})
-    .then(() => callback());
-    console.log(request);    
+
   return dispatch => {
-    return request.then(({data}) => {
+    return axios.post(`${API}/posts`,values,{headers})
+      .then((data) => {
+        callback();
+        console.log(data)
       dispatch({
         type: CREATE_POST,
         payload: data

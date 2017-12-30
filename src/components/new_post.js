@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createPosts } from '../actions/posts_action';
 
+const uuidv1 = require('uuid/v1'); //For generating unique id for each post
+
 class CreatePost extends Component {
   constructor() {
     super();
@@ -38,6 +40,10 @@ class CreatePost extends Component {
     });
   }
 
+  generateID() {
+    return  uuidv1();
+      }
+
   renderCategory(field) {
     return(
       <div className="title-design">
@@ -57,12 +63,13 @@ class CreatePost extends Component {
   }
 
     onSubmit(values) {
-      this.props.change('id',(new Date()).getTime());
-      this.props.createPosts(values, () => {
 
+          this.props.createPosts(values, () => {
           this.props.history.push('/');
       });
     }
+
+
 
     render() {
       const { handleSubmit } = this.props;
@@ -87,6 +94,7 @@ class CreatePost extends Component {
             component={this.renderCategory}
             />
 
+
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link  to="/">
             <button className="cancel-button">Cancel</button>
@@ -110,6 +118,7 @@ function validate(values) {
   if(!values.category) {
     errors.category = "Please select a category";
   }
+
 
   return errors;
 }

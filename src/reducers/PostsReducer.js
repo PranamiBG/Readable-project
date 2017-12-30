@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { FETCH_POSTS, FETCH_POST, CREATE_POST } from '../actions/posts_action';
 
-export default function(state = {}, action) {
+export default function(state = {posts: [] }, action) {
   switch (action.type) {
     case FETCH_POST:
       // const post = action.payload.data;
@@ -14,7 +14,7 @@ export default function(state = {}, action) {
      return {posts: { ...state.posts, ...action.payload }};
 
     case CREATE_POST:
-      return {posts: { ...state, ...action.payload}};
+      return {...state, posts: [...state.posts, ...action.payload]};
 
      default:
       return state;
