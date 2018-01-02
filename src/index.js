@@ -12,6 +12,7 @@ import CreatePost from './components/new_post';
 import PostDetail from './components/post_detail';
 import CategoryView from './components/category';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 
 //const createStoreWithMiddleware = createStore(reducers,applyMiddleware(thunk));
 
@@ -26,6 +27,7 @@ ReactDOM.render(
           <Route path="/posts/:id" component={PostDetail} />
           <Route exact  path="/" component={Posts} />
           <Route path="/:category/posts" component={CategoryView} />
+          <Route path="/edit/" component={CreatePost}/>
         </div>
       </BrowserRouter>
   </Provider>  , document.getElementById('root'));

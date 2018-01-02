@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/posts_action';
+import { fetchPosts, fetchPost } from '../actions/posts_action';
 import { fetchCategories } from '../actions/categories_action';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import _ from 'lodash';
-
+import { bindActionCreators } from 'redux';
 
 class PostsIndex extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchPosts())
+    this.props.fetchPosts()
     .then(() => {
       this.setState({
         loading : false
@@ -17,12 +17,18 @@ class PostsIndex extends Component {
       console.log(this.props.posts)
   });
 
-  this.props.dispatch(fetchCategories())
+  this.props.fetchCategories()
   .then(() => {
         console.log(this.props.categories)
 
 });
 
+  }
+
+  showPostDetail() {
+    const { id } = this.props.match.params;
+    console.log(id);
+    this.props.fetchPost('8xf0y6ziyjabvozdd253nd');
   }
 
   render() {
@@ -69,8 +75,13 @@ class PostsIndex extends Component {
                 { arr.map(post => {
                      return (
                              <li className="card" key={post.id}>
+                             <button
+                                onClick={this.showPostDetail.bind(this)}>
+                                  <h4 className="post_title"> {post.title} </h4>
+                             </button>
                                 <h4 className="post_title"> {post.title} </h4>
                                 <h5 className="post_body">  {post.body} </h5>
+
                              </li>
                      )
 
@@ -99,4 +110,8 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(PostsIndex);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchPost, fetchPosts, fetchCategories }, dispatch);
+}
+
+export default connect(mapStateToProps ,mapDispatchToProps)(PostsIndex);

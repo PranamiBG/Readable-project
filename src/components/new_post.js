@@ -4,15 +4,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createPosts } from '../actions/posts_action';
 
-const uuidv1 = require('uuid/v1'); //For generating unique id for each post
-
 class CreatePost extends Component {
   constructor() {
     super();
     this.state = {
       selectValue : ''
   };
-  this.handleChange = this.handleChange.bind(this);
+
   this.renderCategory = this.renderCategory.bind(this);
 }
 
@@ -32,17 +30,6 @@ class CreatePost extends Component {
       );
   }
 
-  handleChange(e) {
-    const value=e.target.value;
-    this.props.change("categories",value);
-    this.setState({selectValue: value}, () => {
-      console.log(value)
-    });
-  }
-
-  generateID() {
-    return  uuidv1();
-      }
 
   renderCategory(field) {
     return(
@@ -63,7 +50,10 @@ class CreatePost extends Component {
   }
 
     onSubmit(values) {
-
+          var id = Math.random().toString(36).substr(-8);
+          var d = new Date().toLocaleTimeString();
+          values.id = id;
+          values.timestamp = d;
           this.props.createPosts(values, () => {
           this.props.history.push('/');
       });

@@ -2,6 +2,8 @@ import axios from 'axios';
 export const FETCH_POSTS = 'fetch_posts';
 export const CREATE_POST = 'create_post';
 export const FETCH_POST = 'fetch_post';
+export const DELETE_POST ='delete_post';
+export const EDIT_POST = 'edit_post';
 
 let token ;
 if(!token)
@@ -21,6 +23,7 @@ export function fetchPosts() {
 
   return dispatch => {
         return request.then(({data}) => {
+          console.log(data);
           dispatch({
             type : FETCH_POSTS,
             payload : data
@@ -55,6 +58,35 @@ export function fetchPost(id) {
         dispatch({
         type: FETCH_POST,
         payload: data
+        })
+      })
+    }
+}
+
+//Action creator for deleting post
+export function deletePost(id, callback) {
+  const request = axios.delete(`${API}/posts/${id}`, {headers})
+            .then(() => callback());
+
+  return {
+    type: DELETE_POST,
+    payload: id
+  }
+}
+
+
+//Action creator for editing post
+export function editPost(id, callback) {
+  const request = axios.get(`${API}/posts/${id}`,{headers});
+
+              console.log(request);
+    return dispatch => {
+      return request.then((data) => {
+        callback();
+        console.log(data);
+        dispatch({
+          type: EDIT_POST,
+          payload: data
         })
       })
     }
