@@ -7,9 +7,7 @@ import { createPosts } from '../actions/posts_action';
 class CreatePost extends Component {
   constructor() {
     super();
-    this.state = {
-      selectValue : ''
-  };
+  
 
   this.renderCategory = this.renderCategory.bind(this);
 }

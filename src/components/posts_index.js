@@ -53,10 +53,9 @@ class PostsIndex extends Component {
                 { category_object.map((category, index) => {
                   return (
                     <Link
+                      className="category"
                       to= "/posts">
-                    <button className="category" key={index} >
                         {category.name}
-                    </button>
                     </Link>
                   )
                 })
@@ -75,11 +74,13 @@ class PostsIndex extends Component {
                 { arr.map(post => {
                      return (
                              <li className="card" key={post.id}>
-                             <button
-                                onClick={this.showPostDetail.bind(this)}>
-                                  <h4 className="post_title"> {post.title} </h4>
-                             </button>
+                             <Link
+                              to={`/posts/${post.id}`}>
+
+
+
                                 <h4 className="post_title"> {post.title} </h4>
+                               </Link>
                                 <h5 className="post_body">  {post.body} </h5>
 
                              </li>

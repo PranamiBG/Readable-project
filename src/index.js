@@ -9,6 +9,7 @@ import App from './App';
 import reducers from './reducers/index.js'
 import Posts from './components/posts_index';
 import CreatePost from './components/new_post';
+import EditPost from './components/edit_post';
 import PostDetail from './components/post_detail';
 import CategoryView from './components/category';
 import { compose } from 'redux';
@@ -27,7 +28,7 @@ ReactDOM.render(
           <Route path="/posts/:id" component={PostDetail} />
           <Route exact  path="/" component={Posts} />
           <Route path="/:category/posts" component={CategoryView} />
-          <Route path="/edit/" component={CreatePost}/>
+          <Route path="/edit/" component={EditPost}/>
         </div>
       </BrowserRouter>
   </Provider>  , document.getElementById('root'));
