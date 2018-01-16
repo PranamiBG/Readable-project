@@ -2,23 +2,39 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editPost, fetchPost } from '../actions/posts_action';
+import { editPost, submitEditedPost } from '../actions/posts_action';
 
 class EditPost extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state={
+      title: this.props.post.title,
+      body: this.props.post.body
+    }
+
     this.renderField = this.renderField.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onContentChange = this.onContentChange.bind(this);
   }
 
   componentDidMount() {
       const { id } = this.props.match.params;
-      this.props.fetchPost(id);
-      console.log(this.props.fetchPost(id))
-  }
+      this.props.editPost(id, () => {
+      this.props.history.push(`/edit/${id}`)
+   console.log(this.props.history)
+  })
+}
+
+onInputChange(event) {
+  this.setState({title: event.target.value})
+  console.log(this.state.title)
+}
+
+onContentChange(event) {
+  this.setState({body: event.target.value});
+}
 
   renderField(field) {
-    const { post } = this.props;
-    console.log(post)
     return(
       <div className="title-design">
           <label className="label-design"> {field.label} </label>
@@ -26,7 +42,8 @@ class EditPost extends Component {
             type="text"
             className="title-input"
             {...field.input}
-            value={post.title}
+            value={this.state.title}
+            onChange={this.onInputChange}
           />
           <div className="text-help  has-danger">
             {field.meta.touched ? field.meta.error : ''}
@@ -54,42 +71,52 @@ class EditPost extends Component {
   }
 
   onSubmit(values) {
-        var id = Math.random().toString(36).substr(-8);
-        var d = new Date().toLocaleTimeString();
-        values.id = id;
-        values.timestamp = d;
-        this.props.createPosts(values, () => {
+        const { id } = this.props.match.params;
+        const formData = {};
+     for (const field in this.refs) {
+       formData[field] = this.refs[field].value;
+     }
+        formData.id = id;
+       console.log('-->', formData);
+        this.props.submitEditedPost(id, formData, () => {
         this.props.history.push('/');
     });
   }
 
   render() {
     const { handleSubmit } = this.props;
-
+    console.log(this.props, 'kdjfkdfjdkfjkfjkdfjdkfdf')
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Field
-          label="Title for Post"
-          name="title"
-          component={this.renderField}
-        />
 
-        <Field
-          label="Post Content"
-          name="body"
-          component={this.renderField}
-        />
 
-        <Field
-          label="Category"
-          name="category"
-          component={this.renderCategory}
+          <input
+            ref="title"
+            type="text"
+            name="title"
+            className="title-input"
+            value={this.state.title}
+            onChange={this.onInputChange}
           />
 
+          <input
+            ref="body"
+            type="text"
+            name="body"
+            className="title-input"
+            value={this.state.body}
+            onChange={this.onContentChange}
+          />
 
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <Link  to="/">
-          <button className="cancel-button">Cancel</button>
+        <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={() => {console.log("Submitted")}}  >Submit</button>
+
+            <Link  to="/">
+          <button
+          className="cancel-button"
+          onClick={() => {console.log("Edit")}}>Cancel</button>
         </Link>
       </form>
     );
@@ -114,9 +141,13 @@ function validate(values) {
   return errors;
 }
 
+function mapStateToProps({ posts }, ownProps) {
+  return { post: posts[ownProps.match.params.id] };
+}
+
 export default reduxForm({
   validate : validate,          //validate
-  form : 'CreatePostForm'
+  form : 'EditPostForm'
 })(
-  connect(null,{ editPost, fetchPost })(EditPost)
+  connect(mapStateToProps, { editPost, submitEditedPost })(EditPost)
 );

@@ -28,7 +28,7 @@ ReactDOM.render(
           <Route path="/posts/:id" component={PostDetail} />
           <Route exact  path="/" component={Posts} />
           <Route path="/:category/posts" component={CategoryView} />
-          <Route path="/edit/" component={EditPost}/>
+          <Route path="/edit/:id" component={EditPost}/>
         </div>
       </BrowserRouter>
   </Provider>  , document.getElementById('root'));

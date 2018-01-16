@@ -4,6 +4,7 @@ export const CREATE_POST = 'create_post';
 export const FETCH_POST = 'fetch_post';
 export const DELETE_POST ='delete_post';
 export const EDIT_POST = 'edit_post';
+export const SUBMIT_POST = 'submit_post';
 
 let token ;
 if(!token)
@@ -78,8 +79,6 @@ export function deletePost(id, callback) {
 //Action creator for editing post
 export function editPost(id, callback) {
   const request = axios.get(`${API}/posts/${id}`,{headers});
-
-              console.log(request);
     return dispatch => {
       return request.then((data) => {
         callback();
@@ -87,6 +86,23 @@ export function editPost(id, callback) {
         dispatch({
           type: EDIT_POST,
           payload: data
+        })
+      })
+    }
+}
+
+//Action creator for submitting edited post
+export function submitEditedPost(id, values, callback) {
+  console.log(values, 'values')
+  console.log(id, 'id')
+  const request = axios.put(`${API}/posts/${id}`, {values}, {headers});
+    return dispatch => {
+      return request.then((res) => {
+        callback();
+        console.log("response", res)
+        dispatch({
+          type:SUBMIT_POST,
+          payload: res
         })
       })
     }

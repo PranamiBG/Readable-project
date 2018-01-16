@@ -18,9 +18,10 @@ class PostDetail extends Component {
     }
 
     onEditClick() {
+      const { post } = this.props;
       const { id } = this.props.match.params;
       this.props.editPost(id, () => {
-        this.props.history.push('/edit');
+        this.props.history.push(`/edit/${post.id}`);
       });
     }
 

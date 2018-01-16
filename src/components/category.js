@@ -6,7 +6,7 @@ class CategoryView extends Component {
   componentDidMount() {
     const { category } = this.props.match.params;
     this.props.fetchPostWithCateogry(category);
-    console.log(category);
+    console.log(this.props);
   }
 
     render() {

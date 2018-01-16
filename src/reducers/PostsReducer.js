@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_POST, CREATE_POST, EDIT_POST } from '../actions/posts_action';
+import { FETCH_POSTS, FETCH_POST, CREATE_POST, EDIT_POST, SUBMIT_POST } from '../actions/posts_action';
 
 export default function(state = {posts: {} }, action) {
   switch (action.type) {
@@ -17,8 +17,20 @@ export default function(state = {posts: {} }, action) {
     case CREATE_POST:
       return {...state, [ action.payload.id]: action.payload};
 
-      case EDIT_POST:
+    case EDIT_POST:
         return { ...state, [action.payload.id]: action.payload};
+
+    case SUBMIT_POST:
+    console.log(action.payload);
+        let id = action.payload.id;
+      return {
+          ...state,
+          [id]: {
+            ...state[id],
+            title: action.payload.title,
+            body: action.payload.body
+          }
+        };
 
      default:
       return state;
