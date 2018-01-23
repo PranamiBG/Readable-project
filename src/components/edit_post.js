@@ -86,6 +86,7 @@ onContentChange(event) {
   render() {
     const { handleSubmit } = this.props;
     console.log(this.props, 'kdjfkdfjdkfjkfjkdfjdkfdf')
+    console.log(this.state.title, '555555555555')
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 

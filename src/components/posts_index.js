@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchPost } from '../actions/posts_action';
 import { fetchCategories } from '../actions/categories_action';
+import { fetchComments } from '../actions/comment_action';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import _ from 'lodash';
@@ -50,12 +51,12 @@ class PostsIndex extends Component {
               {
                 category_object  ?
                 <div className="parent">
-                { category_object.map((category, index) => {
+                { category_object.map((post, index) => {
                   return (
                     <Link
                       className="category"
-                      to= "/posts">
-                        {category.name}
+                      to= {`/${post.name}/posts`}>
+                        {post.name}
                     </Link>
                   )
                 })
@@ -95,6 +96,7 @@ class PostsIndex extends Component {
                 </div>
               }
 
+
               <Link
                 to="/new">
                 <button className="create-post">Create Post</button>
@@ -112,7 +114,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPost, fetchPosts, fetchCategories }, dispatch);
+  return bindActionCreators({ fetchPost, fetchPosts, fetchCategories, fetchComments }, dispatch);
 }
 
 export default connect(mapStateToProps ,mapDispatchToProps)(PostsIndex);

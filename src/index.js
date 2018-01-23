@@ -11,6 +11,7 @@ import Posts from './components/posts_index';
 import CreatePost from './components/new_post';
 import EditPost from './components/edit_post';
 import PostDetail from './components/post_detail';
+import CommentView from './components/comments_view';
 import CategoryView from './components/category';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
@@ -18,17 +19,18 @@ import { Link } from 'react-router-dom';
 //const createStoreWithMiddleware = createStore(reducers,applyMiddleware(thunk));
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
- const createStoreWithMiddleware = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+export const createStoreWithMiddleware = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware}>
       <BrowserRouter>
         <div>
           <Route  path="/new" component={CreatePost} />
-          <Route path="/posts/:id" component={PostDetail} />
+          <Route exact path="/posts/:id" component={PostDetail} />
           <Route exact  path="/" component={Posts} />
           <Route path="/:category/posts" component={CategoryView} />
           <Route path="/edit/:id" component={EditPost}/>
+          <Route path="posts/:id/comments" component={CommentView} />
         </div>
       </BrowserRouter>
   </Provider>  , document.getElementById('root'));
